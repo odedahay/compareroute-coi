@@ -1,0 +1,139 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+
+    <div class="page-header-admin">
+        <div class="row">
+            <h2>Postal Code - List</h2>
+            <!--<p class="lead">Paste your Postal code and Order Ids data below to route it:</p>-->
+        </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+
+              <div class="list-group" style="padding-top:30px;">
+                  <a href="#" class="list-group-item active">
+                    Postal Code Alert
+                  </a>
+                  <a href="#" class="list-group-item">Search Postal Code</a>
+                  <a href="#" class="list-group-item">Postal Record Alert</a>
+                  <a href="#" class="list-group-item">Add New Postal Code</a>
+              </div>
+
+          </div>
+          <div class="col-md-9">
+           <div class="row">
+            <h3>Postal Code Alert</h3>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Postal Code</th>
+                    <th>Modify</th>
+                </tr>
+                 {% for postalChecker in postalCheckers %}
+                <tr>
+                    <td>
+                        {{ postalChecker.created_date }}
+                        <input type="hidden" name="created_date" id="created_date" value="{{ postalChecker.created_date }}">
+                    </td>
+                    <td>
+                        {{ postalChecker.user_email }}
+                        <input type="hidden" name="user_email" id="user_email" value="{{ postalChecker.user_email }}">
+                    </td>
+                    <td id="changeColor">
+                        {{ postalChecker.postal_code }}
+                        <input type="hidden" name="postal_code" id="postal_code" value="{{ postalChecker.postal_code }}">
+                    </td>
+                    <td>
+                        <table class="table" style="margin-bottom:0px;">
+                            <tr>
+                                <td><a href="/admin-postalcode-chk?compare_id={{postalChecker.compare_id}}" class="btn btn-primary btn-sm" role="button">Check</a></td>
+                                <td><a href="/admin-postalcode-add?compare_id={{postalChecker.compare_id}}" class="btn btn-primary btn-sm" role="button">Add</a></td>
+                                <td><a href="/admin-postalcode-done?compare_id={{postalChecker.compare_id}}" class="btn btn-primary btn-sm" role="button" id="move-button">Move as Done</a></td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+                 {% endfor %}
+                 {% if update_postalcode_error %}
+                    <div id="ajax-errors" class="alert alert-danger" role="alert" style="width: 300px">
+                    <p style="text-align: center">{{update_postalcode_error}}</p>
+                    </div>
+
+                {% elif update_postalcode_success %}
+                    <div id="ajax-errors" class="alert alert-success" role="alert"  style="width: 300px">
+                    <p style="text-align: center">{{update_postalcode_success}}</p>
+                    </div>
+                {% endif %}
+
+            </table>
+
+        </div>
+
+          </div>
+        </div>
+
+
+        <hr />
+
+        <div class="row">
+            <h3>Postal Code Record</h3>
+            <form class="navbar-form navbar-left" role="search" action="/search">
+                <div class="form-group input-group">
+                    <input type="text" class="form-control" placeholder="Search Postal Code" value="{{ query }}" name="q">
+
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="row">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Postal Code</th>
+                    <th>Latitude</th>
+                    <th>Longtitude</th>
+                </tr>
+                 {% for result in results %}
+                <tr>
+                    <td>{{ result.postal_code }}</td>
+                    <td>{{ result.lat }}</td>
+                    <td>{{ result.long }}</td>
+
+                </tr>
+                 {% endfor %}
+            </table>
+        </div>
+        <hr />
+        <div class="row">
+            <h3>Postal Record Added</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Date Added</th>
+                    <th>Postal Code by User</th>
+                    <th>Postal Code</th>
+                </tr>
+                 {% for result_history in postalHistory %}
+                <tr>
+                    <td>{{ result_history.created_date }}</td>
+                    <td>{{ result_history.user_email }}</td>
+                    <td>{{ result_history.postal_code }}</td>
+
+                </tr>
+                 {% endfor %}
+            </table>
+
+        </div>
+    <hr />
+<!-- container -->
+
+{% endblock %}

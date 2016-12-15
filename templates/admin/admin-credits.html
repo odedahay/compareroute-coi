@@ -1,0 +1,53 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Summary Route Result{% endblock %}
+{% block content %}
+    <div class="page-header-admin">
+         <h2>User Credit Control</h2>
+        <p class="lead"></p>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+
+            {% if update_success %}
+				<div id="ajax-errors" class="alert alert-success hideThis" role="alert" style="width:400px;">
+				    <p style="text-align: center" >{{update_success}}</p>
+				</div>
+            {% endif %}
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Full Name</th>
+                    <th>User Email</th>
+                    <th>API Key</th>
+                    <th>API Credits:</th>
+                    <th>Admin</th>
+
+                    <th>Modify</th>
+                </tr>
+
+            {% for userAccount in userAccounts %}
+                <tr>
+
+                    <td>{{ userAccount.name }}</td>
+                    <td>{{ userAccount.email }}</td>
+                    <td>{{ userAccount.api_key }}</td>
+                    <td>{{ userAccount.api_credits }}</td>
+                    <td>{{ userAccount.user_admin }}</td>
+
+                    <td>
+                        <a href="/admin-credits-edit?id={{ userAccount.key.id() }}" class="btn btn-primary btn-sm" role="button">Edit</a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+<a href="#" class="scrollToTop">
+    <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+    <!--Scroll To Top-->
+</a>
+
+{% endblock %}

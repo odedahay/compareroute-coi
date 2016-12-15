@@ -1,0 +1,266 @@
+{% extends "main.html" %}
+{% block title %}Compare Routing{% endblock %}
+{% block body %} index compare-data{% endblock %}
+{% include "commons/navbar.html" %}
+{% block content %}
+
+<div class="container theme-showcase" role="main" id="compare">
+    <div class="page-header userPage">
+        <h2>Route Log</h2>
+        <p class="lead">Generated Proposed Route Log Details</p>
+        <hr />
+        <div class="text-right">
+            <br />
+            {% for back in web_routes %}
+                <span><a href="/compare-data" class="btn btn-info btn-sm">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a></span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+        {% for route_web in web_routes %}
+
+                 <h4>Summary Records</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Created Date </th>
+                        <th>Starting Postal Code </th>
+                        <th>No. of Truck </th>
+                        <!--<th>Truck Capacity </th>-->
+                        <th>Sorted Postal Code w/ Starting-Postal Pts.</th>
+                        <th>Return Truck to Starting Postal (HQ) </th>
+                        <th>Original Route Total Distance </th>
+                        <th>Proposed Route Total Distance </th>
+                    </tr>
+                    <tr>
+                        <td> {{ route_web.created_date.strftime('%Y-%m-%d %H:%m') }}</td>
+                        <td> {{ route_web.starting_point }}</td>
+                        <td> {{ route_web.no_vehicle }}</td>
+                        <!--<td> {{ route_web.vehicle_capacity }}</td>-->
+                        <td> {{ route_web.postal_count }}</td>
+                        <td> {{ route_web.return_vehicle }}</td>
+                        <td> {{ route_web.current_total_dist }}</td>
+                        <td> {{ route_web.proposed_total_dist }}</td>
+                    </tr>
+                </table>
+
+           {% endfor %}
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Starting Point Information</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Starting Point Info</th>
+                    <th>Latitude </th>
+                    <th>Longtitude </th>
+                </tr>
+                {% for starting in web_routes %}
+                    <tr>
+                        <td>{{ starting.starting_point }}</td>
+                        <td>{{ starting.latVal }} </td>
+                        <td> {{ starting.longVal }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+         </div>
+
+        <div class="col-md-6">
+         <!-- This is for Truck capacity -->
+        {% if route_by == 1 %}
+
+            <h4>Truck Information</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Truck No. </th>
+                    <th>Delivery Routes </th>
+                </tr>
+                {% for truck_det in truck_details %}
+                <tr>
+                    <td> {{ truck_det.no_vehicle }}</td>
+                    <td> {{ truck_det.cargo_loads }} Proposed Routes</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+
+        {% elif route_by == 2 %}
+
+                <h4>Truck Details</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Truck No. </th>
+                        <th>Type of Truck </th>
+                        <th>Delivery Routes </th>
+                    </tr>
+                    {% for truck_det in truck_details %}
+                    <tr>
+                        <td> {{ truck_det.no_vehicle }}</td>
+                        <td> {{ truck_det.truck_details }}</td>
+                        <td> {{ truck_det.cargo_loads }} Proposed Routes</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+        {% elif route_by == 3 %}
+
+            <h4>Truck Details for Companies</h4>
+
+        {% endif %}
+        </div>
+
+
+    </div>
+
+    <br /><br />
+    <div class="page-tab">
+        <div class="row">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#proposeTab" aria-controls="proposeTab" role="tab" data-toggle="tab">Proposed Route Data</a>
+                </li>
+                <li role="presentation">
+                    <a href="#currentTab" aria-controls="currentTab" role="tab" data-toggle="tab">Original Route Data</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="proposeTab">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Proposed Routes</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped center">
+                                <thead>
+                                    <tr>
+                                        <th>Sequence Order</th>
+                                        <th class="background_color">Truck No. </th>
+                                        <th>Order ID</th>
+
+                                        <!--Show Cargo unit if Truck Capacity is selected-->
+                                        {% if route_by == 2 %}
+                                            <th>Cargo Unit</th>
+                                         {% endif %}
+
+                                        <th>Origin Postal Code</th>
+                                        <th>Destination Postal Code</th>
+                                        <th>Latitude</th>
+                                        <th>Longtitude</th>
+                                        <th>Distance (km)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        {% for propose in web_proposed %}
+                                        <tr>
+                                            <td>{{ propose.rank_id }}</td>
+                                            <td class="background_color">{{ propose.vehicle_id }}</td>
+                                            <td>{{ propose.order_id }}</td>
+
+                                            <!--Show Cargo unit if Truck Capacity is selected-->
+                                            {% if route_by == 2 %}
+                                                <td>{{ propose.cargo_unit }}</td>
+                                            {% endif %}
+
+                                            <td>{{ propose.origin_code }}</td>
+                                            <td>{{ propose.postal_code }}</td>
+                                            <td>{{ propose.longVal }} </td>
+                                            <td>{{ propose.latVal }}</td>
+
+                                            <td>{{ propose.distance }}</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                </tbody>
+                            </table><!-- End of Table -->
+                        </div>
+                    </div><!-- End of Left Col -->
+                </div><!-- End of Propose Tab -->
+
+                <!-- Start for 2nd Tab // Original Routes-->
+                <div role="tabpanel" class="tab-pane" id="currentTab">
+                    <div class="row">
+                        <div class="col-md-12">
+                           <h4>Oringinal Routes</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped center">
+                                <thead>
+                                    <tr>
+                                        <th>Sequence Order</th>
+                                        <th class="background_color">Truck No. </th>
+                                        <th>Order ID</th>
+
+                                        <!--Show Cargo unit if Truck Capacity is selected-->
+                                        {% if route_by == 2 %}
+                                            <th>Cargo Unit</th>
+                                         {% endif %}
+
+                                        <th>Origin Postal Code</th>
+                                        <th>Destination Postal Code</th>
+                                         <th>Latitude</th>
+                                        <th>Longtitude</th>
+                                        <th>Distance (km)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        {% for propose in web_current %}
+                                        <tr>
+                                            <td>{{ propose.rank_id }}</td>
+                                            <td class="background_color">{{ propose.vehicle_id }}</td>
+                                            <td>{{ propose.order_id }}</td>
+
+                                            <!--Show Cargo unit if Truck Capacity is selected-->
+                                            {% if route_by == 2 %}
+                                                <td>{{ propose.cargo_unit }}</td>
+                                            {% endif %}
+
+                                            <td>{{ propose.origin_code }}</td>
+                                            <td>{{ propose.postal_code }}</td>
+                                            <td>{{ propose.latVal }}</td>
+                                            <td>{{ propose.longVal }}</td>
+                                            <td>{{ propose.distance }}</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                </tbody>
+                            </table><!-- End of Table -->
+                        </div>
+                    </div><!-- End of Left Col -->
+                </div><!-- End of Propose Tab -->
+            </div>
+        </div>
+    </div><!-- End Page Tab-->
+
+    <!--  Progress Bar -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="progressbar"></div>
+        </div>
+    </div>
+
+</div><!-- container theme-showcase -->
+<hr />
+
+<a href="#" class="scrollToTop">
+    <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+    <!--Scroll To Top-->
+</a>
+
+<!--<script src="/js/jquery.progresstimer.js"></script>-->
+<script src="/js/excel_dl/jquery.btechco.excelexport.js"></script>
+<script src="/js/excel_dl/jquery.base64.js"></script>
+<script src="/js/route/pagination_filter.js"></script>
+
+{% endblock %}

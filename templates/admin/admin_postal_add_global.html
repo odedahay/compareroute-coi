@@ -1,0 +1,55 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+	<div class="page-header-admin">
+		<h2>Adding New Postal Code</h2>
+	</div>
+	<div class="row">
+		<h3>Add New Postal Code</h3>
+	</div>
+	<div class="row">
+
+		<div class="col-md-12">
+
+			<form method="POST" action="/admin-postal-add">
+
+				<label>Postal Code   <span class="label label-warning" style="font-size:13px; margin:0 0 20px 0; font-weight:normal">
+				Please provide Latitude & Longtitude in fields below:</span></label>
+
+				<input class="form-control" type="text" id="postal_code" name="postal_code" value="{{postalcode}}">
+				<br /><br />
+				<label>Latitude</label>
+				<input class="form-control" type="text" id="latitude_val" name="latitude_val" required>
+				<span id="new_password_status">&nbsp</span>
+				<br />
+				<br />
+				<label>Longtitude</label>
+				<input class="form-control" type="text" id="longtitude_val" name="longtitude_val" required>
+				<span id="cfm_new_password_status">&nbsp</span>
+				<br /><br />
+
+				{% if update_postalcode_error %}
+					<div id="ajax-errors" class="alert alert-danger" role="alert" style="width: 300px">
+						<p style="text-align: center">{{update_postalcode_error}}</p>
+					</div>
+
+				{% elif update_postalcode_success %}
+					<div id="ajax-errors" class="alert alert-success" role="alert"  style="width: 300px">
+						<p style="text-align: center">{{update_postalcode_success}}</p>
+					</div>
+				{% endif %}
+
+				<a href="/admin-postal" class="btn btn-info">
+					<i class="fa fa-step-backward" aria-hidden="true"></i> Cancel</a>
+
+				<button type="submit" class="btn btn-primary">Add Postal Code</button>
+
+			</form>
+		</div>
+	</div>
+<!-- container -->
+
+
+{% endblock %}

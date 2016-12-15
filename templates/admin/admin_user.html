@@ -1,0 +1,137 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Summary Route Result{% endblock %}
+{% block content %}
+
+
+    <div class="page-header-admin">
+        <h2>User Log Activity</h2>
+        <p class="lead">User Details</p>
+    </div>
+    <div class="row">
+        <div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Web APP Users</a>
+            </li>
+            <li role="presentation">
+                <a href="#api" aria-controls="profile" role="tab" data-toggle="tab">API Users</a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="row">
+                    <h4 class="text-center">Web App's User Record</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <span class="badge"><a href="/admin" >Go Back</a></span>
+                            User Account Details
+                          </li>
+                          <li class="list-group-item">Name : {{ profile.name }}</li>
+                          <li class="list-group-item">Company : {{ profile.company }}</li>
+                          <li class="list-group-item">Email : {{ profile.email }}</li>
+                          <li class="list-group-item">User's Credit Left : {{profile.api_credits}}
+                                <a href="/admin-credits" class="btn btn-primary btn-xs active" role="button"> Edit</a>
+                          </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <table class="tableAdmin table-bordered">
+                            <tr>
+                                <th>User id</th>
+                                <th>Created date</th>
+                                <th>Starting point</th>
+                                <th>Sorted Postal Code</th>
+                                <th>Returning Vehicle</th>
+                                <th>Current Total Distance</th>
+                                <th>Proposed Total Distance</th>
+                                <th>Total Savings (%)</th>
+                            </tr>
+                             {% for route_web in web_routes_user_id %}
+                            <tr>
+                                <td>
+                                    <a href="/admin-summary?compare_id={{route_web.compare_id}}">{{ route_web.user_id }}</a>
+                                </td>
+                                <td>{{ route_web.created_date.strftime('%Y-%m-%d %H:%m') }}</td>
+                                <td>{{ route_web.starting_point }}</td>
+                                <td>{{ route_web.postal_count }}</td>
+                                <td>{{ route_web.return_vehicle }}</td>
+                                <td>{{ route_web.current_total_dist }}</td>
+                                <td>{{ route_web.proposed_total_dist }}</td>
+                                <td>{{ route_web.percentage_savings }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <br>
+                </div>
+              </div><!--End of the Web App -->
+              <div role="tabpanel" class="tab-pane" id="api">
+                 <div class="row">
+                   <h4 class="text-center">API User Record</h4>
+                 </div>
+                 <div class="row">
+                    <div class="col-xs-3">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <span class="badge"><a href="/admin" >Go Back</a></span>
+                            User Account Details
+                          </li>
+                          <li class="list-group-item">Name : {{ profile.name }}</li>
+                          <li class="list-group-item">Company : {{ profile.company }}</li>
+                          <li class="list-group-item">Email : {{ profile.email }}</li>
+                          <li class="list-group-item">User's Credit Left : {{profile.api_credits}}
+                              <a href="/admin-credits" class="btn btn-primary btn-xs active" role="button"> Edit</a>
+                          </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-xs-9">
+                        <table class="tableAdmin table-bordered">
+                            <tr>
+                                <th>User id</th>
+                                <th>Created date</th>
+                                <th>Starting point</th>
+                                <th>Sorted Postal Code</th>
+                                <th>Returning Vehicle</th>
+                                <th>Current Total Distance</th>
+                                <th>Proposed Total Distance</th>
+                                <th>Total Savings (%)</th>
+                            </tr>
+                            {% for route_api in api_routes_user_id %}
+                            <tr>
+                                <td>
+                                    <a href="/admin-summary-api?compare_id={{route_api.compare_id}}">{{ route_api.user_id }}</a>
+                                </td>
+                                <td>{{ route_api.created_date.strftime('%Y-%m-%d %H:%m') }}</td>
+                                <td>{{ route_api.starting_point }}</td>
+                                <td>{{ route_api.postal_count }}</td>
+                                <td>{{ route_api.return_vehicle }}</td>
+                                <td>{{ route_api.current_total_dist }}</td>
+                                <td>{{ route_api.proposed_total_dist }}</td>
+                                <td>{{ route_api.percentage_savings }}</td>
+
+                            </tr>
+                         {% endfor %}
+                        </table>
+                    </div>
+                    <br>
+                 </div>
+              </div><!--End of the API User -->
+          </div><!--End of Tab -->
+
+        </div>
+    </div>
+
+<!-- container -->
+
+<a href="#" class="scrollToTop">
+    <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+    <!--Scroll To Top-->
+</a>
+
+{% endblock %}

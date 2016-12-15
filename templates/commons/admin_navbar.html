@@ -1,0 +1,92 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header" style="padding-left:20px;">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/admin">CompareRoute Admin Page</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <div class="navbar-right">
+
+                <ul class="nav navbar-nav" id="admin_nav">
+
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> {{ email }}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/compare"><i class="fa fa-map-marker"></i> Back to CompareRoute</a></li>
+                            <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+
+            <div class="admin-logo-placement">
+                <img class="img-responsive" src="img/logo/compare-route.png" alt="" width="220">
+            </div>
+
+            <ul class="nav" id="side-menu">
+                <li class="sidebar-search">
+                    Search Postal Code
+                     <form class=""  role="search" action="/admin-search">
+                        <div class="input-group custom-search-form">
+
+                            <!--the search input-->
+                            <input type="text" class="form-control" placeholder="Postal Code only..." value="{{ query }}" name="q">
+
+                            <!--the submit button-->
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+
+                        </div>
+                     </form>
+                </li>
+
+                 <li><a href="/admin"><i class="fa fa-table"></i> User Log Activity</a></li>
+
+                <li>
+                    <a href="/admin-postal"><i class="fa fa-list"></i> Postal Code List<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="/admin-postal">New Postal Code Alert</a></li>
+                            <!--<li><a href="/admin-postal-search">Search Postal Code</a></li>-->
+                            <li><a href="/admin-postal-gnew">Add New Postal Code</a></li>
+                            <li><a href="/admin-postal-arch">Postal Record Alert - Archive</a></li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="/admin-credits"><i class="fa fa-sliders" aria-hidden="true"></i> User Credit Control</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+
+
+
+</nav>

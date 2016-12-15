@@ -1,0 +1,67 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+        <div class="page-header-admin">
+			<br/>
+            <h2>Postal Code -  List</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4"><h3>Are you sure you want to delete?</h3></div>
+            <div class="col-xs-8">
+
+            </div>
+        </div>
+		<div class="row">
+
+			<div class="col-xs-6">
+
+				{% for postalChecker in postalCheckers %}
+
+				<br />
+
+				<form method="POST" action="/admin-postalcode-move">
+
+					<label>Postal Code </label>
+					<input class="form-control" type="text" id="created_date" name="created_date" value="{{ postalChecker.created_date }}">
+					<br /><br />
+
+					<label>User</label>
+						<input class="form-control" type="text" id="user_email" name="user_email" value="{{ postalChecker.user_email }}">
+					<span id="new_password_status">&nbsp</span>
+					<br />
+					<br />
+					<label>Postal Code</label></br>
+					<input class="form-control" type="text" id="postal_code" name="postal_code" value="{{ postalChecker.postal_code }}">
+					<span id="cfm_new_password_status">&nbsp</span>
+
+					<input type="hidden" name="compare_id" id="compare_id" value="{{ postalChecker.compare_id }}">
+
+					 {% endfor %}
+					<br />
+					<br />
+
+					{% if update_postalcode_error %}
+					<div id="ajax-errors" class="alert alert-danger" role="alert" style="width: 300px">
+					<p style="text-align: center">{{update_postalcode_error}}</p>
+					</div>
+
+					{% elif update_postalcode_success %}
+					<div id="ajax-errors" class="alert alert-success" role="alert"  style="width: 300px">
+					<p style="text-align: center">{{update_postalcode_success}}</p>
+					</div>
+					{% endif %}
+					<button type="submit" id="move_postal_code" class="btn btn-primary">Submit Postal Code</button>
+					<a href="/admin-postalcode" class="btn btn-info"><i class="fa fa-step-backward" aria-hidden="true"></i> Go Back</a>
+				</form>
+
+			</div>
+			<br />
+			<div class="col-xs-4"></div>
+		</div><!-- row-->
+<!-- container -->
+
+
+{% endblock %}

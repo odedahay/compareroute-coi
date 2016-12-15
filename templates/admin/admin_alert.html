@@ -1,0 +1,67 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+{% block content %}
+
+
+    <div class="page-header-admin">
+        <h2>Postal Code List</h2>
+        <p class="lead">Review New Postal Code</p>
+    </div>
+    <div class="row">
+    {% if update_postalcode_error %}
+        <div id="ajax-errors" class="alert alert-success" role="alert">
+            <p style="text-align: center">{{update_postalcode_error}}</p>
+        </div>
+    {% elif update_postalcode_success %}
+        <div id="ajax-errors" class="alert alert-success hideThis" role="alert">
+            <p style="text-align: center">{{update_postalcode_success}}</p>
+        </div>
+    {% endif %}
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Date</th>
+                    <th>User ID</th>
+                    <th>Postal Code</th>
+                    <th>No. of Submitted</th>
+                    <th>Modify</th>
+                </tr>
+                {% for postalChecker in postalCheckers %}
+                <tr>
+                    <td>
+                        {{ postalChecker.created_date }}
+                        <input type="hidden" name="created_date" id="created_date" value="{{ postalChecker.created_date }}">
+                    </td>
+                    <td>
+                        {{ postalChecker.user_email }}
+                        <input type="hidden" name="user_email" id="user_email" value="{{ postalChecker.user_email }}">
+                    </td>
+                    <td id="changeColor">
+                        {{ postalChecker.postal_code }}
+                        <input type="hidden" name="postal_code" id="postal_code" value="{{ postalChecker.postal_code }}">
+                    </td>
+                    <td> {{ postalChecker.counter_no }}</td>
+                    <td>
+                        <table class="table" style="margin-bottom:0px; table td:margin-left:0;">
+                            <tr>
+                                <td><a href="/admin-postal-chk?postal={{postalChecker.postal_code}}" class="btn btn-primary btn-sm" role="button">Check Postal Code</a></td>
+                                <td><a href="/admin-postal-add/global?postal={{postalChecker.postal_code}}" class="btn btn-primary btn-sm" role="button">Add Postal Code</a></td>
+                                <td><a href="/admin-postal-move?postal={{postalChecker.postal_code}}" class="btn btn-primary btn-sm" role="button" id="move-button">Delete Postal Code</a></td>
+                                <!--<td><a href="#" data-toggle="modal" data-target=".confirm_delete" class="btn btn-primary btn-sm" role="button" id="move-button">Delete Postal Code</a></td>-->
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {{postalCheckers.postal_code}}
+        </div>
+
+    </div>
+    <hr />
+<!-- container -->
+
+{% endblock %}

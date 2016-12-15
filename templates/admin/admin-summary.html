@@ -1,0 +1,139 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Summary Route Details{% endblock %}
+
+{% block content %}
+
+
+        <div class="page-header-admin">
+            <h2>User Log Activity</h2>
+            <p class="lead">Route Log Details</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right">
+                    {% for back in web_routes %}
+                        <span>
+                            <a href="/admin-user?user_id={{back.user_id}}" class="btn btn-info btn-sm">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+
+            <div class="col-md-12">
+            {% for route_web in web_routes %}
+                    <table class="tableAdmin table-bordered">
+                        <tr>
+                            <th>User ID </th>
+                            <th>Starting Postal Code </th>
+                            <th>No. of Truck </th>
+                            <th>Truck Capacity </th>
+                            <th>Sorted Postal Code </th>
+                            <th>Return Truck to Starting Postal (HQ) </th>
+                        </tr>
+                        <tr>
+                            <td> {{ route_web.user_id }}</td>
+                            <td> {{ route_web.starting_point }}</td>
+                            <td> {{ route_web.no_vehicle }}</td>
+                            <td> {{ route_web.vehicle_capacity }}</td>
+                            <td> {{ route_web.postal_count }}</td>
+                            <td> {{ route_web.return_vehicle }}</td>
+                        </tr>
+                    </table>
+            {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Proposed Route</h3>
+
+                 {% for route in routes %}
+                    <p style="font-size:14px;">The Lat & Long Coordinates of {{ route.starting_point }} : {{ route.origin_destination }} </p>
+                 {% endfor %}
+
+                <table class="tableAdmin table-bordered">
+                    <tr>
+                        <th class="background_color">Truck Nos. </th>
+                        <th>Order IDs</th>
+                        <th>Origin Postal Code</th>
+                        <th class="background_color">Destination Postal Code</th>
+                        <th>Latitude</th>
+                        <th>Longtitude</th>
+                        <th>Route between points</th>
+                        <th>Distance (km)</th>
+                    </tr>
+                     {% for propose in web_proposed %}
+                    <tr>
+                        <td class="background_color">{{ propose.vehicle_id }}</td>
+                        <td>{{ propose.order_id }}</td>
+                        <td>{{ propose.origin_code }}</td>
+                        <td class="background_color">{{ propose.postal_code }}</td>
+                        <td>{{ propose.longVal }}</td>
+                        <td>{{ propose.latVal }}</td>
+                        <td><a href="{{ propose.url_id }}" target="_blank"><span style="font-size:13px;">{{ propose.url_id }}</span></a></td>
+                        <td>{{ propose.distance }}</td>
+                    </tr>
+                     {% endfor %}
+                     {% for route in web_routes %}
+                    <tr>
+                        <td colspan="7" style=" text-align: right;">Proposed Total Distance</td>
+                        <td><strong>{{ route.proposed_total_dist }}</strong></td>
+                    </tr>
+                     {% endfor %}
+                </table>
+
+                <!-- New -->
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Current Route</h3>
+                <table class="tableAdmin table-bordered">
+                    <tr>
+                        <th class="background_color">Truck No.</th>
+                         <th>Order IDs</th>
+                        <th>Origin Postal Code</th>
+                        <th class="background_color">Destination Postal Code</th>
+                        <th>Latitude</th>
+                        <th>Longtitude</th>
+                         <th>Route between points</th>
+                        <th>Distance (km)</th>
+                    </tr>
+                     {% for current in web_current %}
+                    <tr>
+                        <td class="background_color">{{ current.vehicle_id }}</td>
+                        <td>{{ current.order_id }}</td>
+                        <td>{{ current.origin_code }}</td>
+                        <td class="background_color">{{ current.postal_code }}</td>
+                        <td>{{ current.latVal }}</td>
+                        <td>{{ current.longVal }}</td>
+                        <td><a href="{{ current.url_id }}" target="_blank"><span style="font-size:13px;">{{ current.url_id }}</span></a></td>
+                        <td>{{ current.distance }}</td>
+                    </tr>
+                     {% endfor %}
+                     {% for route in web_routes %}
+                    <tr>
+                        <td colspan="7" style=" text-align: right;">Current Total Distance</td>
+                        <td><strong>{{ route.current_total_dist  }}</strong></td>
+                    </tr>
+                     {% endfor %}
+
+                </table>
+            </div>
+        </div>
+<!-- container -->
+    <hr />
+    <a href="#" class="scrollToTop">
+        <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+        <!--Scroll To Top-->
+    </a>
+
+{% endblock %}

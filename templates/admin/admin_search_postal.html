@@ -1,0 +1,54 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+    <div class="page-header-admin">
+        <h2>Postal Code Search</h2>
+        <p class="lead">Search Postal Code in CompareRoute Record</p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <form class="navbar-form navbar-left" role="search" action="/admin-search">
+                <div class="form-group input-group">
+                    <input type="text" class="form-control" placeholder="Search Postal Code" value="{{ query }}" name="q">
+
+                    {% if errormsg %}
+
+                    <div class="alert alert-success" role="alert">
+                        <p style="text-align: center">{{ login_status }}</p>
+                    </div>
+                    {% elif register_error %}
+                    <div class="alert alert-danger" role="alert">
+                        <p style="text-align: center">{{ register_error }}</p>
+                    </div>
+
+                    {% endif %}
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <table class="table table-bordered">
+                {% for result in results %}
+                    <tr>
+                        <th>Postal Code</th>
+                        <th>Latitude</th>
+                        <th>Longtitude</th>
+                    </tr>
+
+                    <tr>
+                        <td>{{ result.postal_code }}</td>
+                        <td>{{ result.lat }}</td>
+                        <td>{{ result.long }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div><!-- row -->
+<!-- container -->
+{% endblock %}

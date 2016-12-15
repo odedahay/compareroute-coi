@@ -1,0 +1,266 @@
+{% extends "main.html" %}
+{% block title %}Compare Page{% endblock %}
+
+{% include "commons/navbar.html" %}
+{% block content %}
+
+<!-- Home -->
+<!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <img class="img-responsive" src="img/profile.png" alt=""> -->
+                    <div class="intro-text">
+                        <span class="name" style="font-size:82px;">CompareRoute</span>
+                        <br />
+                        <!-- <hr class="star-light"> -->
+                        <p class="skills" style="font-size:33px; font-weight:500">Fastest route, shortest routes</p><br />
+                        <p class="skills" style="font-size:24px;">Planning out routes manually can be tiresome and is reliant on the experience of senior personnel.</p>
+                        <p class="skills" style="font-size:24px;">Why not automate the process and avoid the pain of planning?</p>
+                        <br /><br />
+                        <a class="btn btn-success btn-lg page-scroll" href="#about">
+                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i> Find out more</a>
+
+                        <a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#myModal" role="button">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i> Try it now!</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>About CompareRoute</h2>
+                    <hr class="star-primary">
+                     <br /> <br />
+                </div>
+            </div>
+             <div class="row">
+               
+                <div class="col-md-4">  
+                    <img class="img-rounded" src="/img/marketing/copy-paste.jpg" width="150" height="150">
+                    <h4 class="service-heading">Simple to use</h4>
+                    <p>Copy and paste your data in.<br />Let us do the work.</p>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-circle" src="/img/marketing/speedometer.jpg" width="150" height="150">
+                    <h4 class="service-heading">Fast and automatic</h4>
+                    <p>We got the algorithm.<br />We give you the results.</p>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-rounded" src="/img/marketing/command-prompt.png" width="150" height="150">
+                    <h4 class="service-heading">Development</h4>
+                    <p>Use it as tool to our API.<br />Contact us to work it out.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About API -->
+    <section id="api">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Using CompareRoute API </h2>
+                    <hr class="star-primary">
+                     <br /> <br />
+                </div>
+            </div>
+             <div class="row">
+
+                <div class="col-md-8">
+                    <!--<img class="img-rounded" src="/img/marketing/copy-paste.jpg" width="150" height="150">-->
+                <h3>CompareRoute API details</h3>
+                <p>The CompareRoute API offers developers an easy way to utilize CompareRoute's service,
+                    you can integrate service into your development environment or into your application.</p>
+
+                    <p>The API key is part of the URL. A request can be made either by HTTP or by HTTPS.  </p>
+                    <p>Example URL:</p>
+                    <div class="tab-content">
+                        <pre>
+                             http://compare-route-3.appspot.com/api/multi_truck/v1?userId=client@email.com&keyId=4db04e96fb6becab8959918fee80560d1ddb177109dcd5a5
+                        </pre>
+                    </div>
+                    <p>Required Parameters for API </p>
+                    <table class="tableL table-bordered">
+
+                        <thead>
+                            <tr>
+                                <th>Parameter Name</th>
+                                <th>Parameter Value</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>userId</td>
+                                <td>Client username</td>
+                                <td>client@email.com</td>
+                            </tr>
+                            <tr>
+                                <td>keyId</td>
+                                <td>Key ID</td>
+                                <td>4db04e96fb6becab8959918fee80560d1ddb177109dcd5a5</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <p><strong>Note</strong> that the Key ID is made up of 48 characters that can be found in the details in API details.</p>
+
+                <h3>API Access URL</h3>
+                    <p>The base URL for the CompareRoute API request for each type of optimization</p>
+                    <table class="tableL table-bordered">
+
+                        <thead>
+                            <tr>
+                                <th>Type of Optimization</th>
+                                <th>API URL</th>
+                                <th>HTTP Request</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Route for Multiple Truck</td>
+                                <td>api/multi_truck/v1</td>
+                                <td>POST</td>
+                            </tr>
+                            <tr>
+                                <td>Route by Maximize Truck Capacity</td>
+                                <td>api/truck_capacity/v1</td>
+                                <td>POST</td>
+                            </tr>
+                            <tr>
+                                <td>Consolidated Delivery for Multiple Companies</td>
+                                <td>api/multiple_companies/v1</td>
+                                <td>POST</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+				<h3>Authentication</h3>
+				<p>The CompareRoute API use HTTP Basic Access Authentication as its authentication mechanism.
+					Use your e-mail address as the username and the API key as the password. You can generate or view your API key at the API Key box at the top of the page.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="box-api">
+                    <h3>Your API Details</h3>
+                    <p>An API key is needed to use the CompareRoute REST API.</p>
+                    <p>You must be logged in to view your API details.</p>
+                    <a href="/login"> Log in</a> or
+                    <a href="#" data-toggle="modal" data-target="#myModal"> Sign Up</a>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="success" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Our Team</h2>
+                    <hr class="star-primary">
+                     <br />
+                     <br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" >
+                    <div class="team-member">
+                        <img src="/img/profile/Edmund.jpg" class="img-responsive img-circle" alt="" width="200" height="200">
+                        <h4>Edmund</h4>
+                        <p class="text-muted">Project Lead</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> edmund_chan@rp.sg</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                  <div class="col-md-6" >
+                    <div class="team-member">
+                        <img src="/img/profile/rodelio.jpg" class="img-responsive img-circle" alt="" width="200" height="200">
+                        <h4>Rodelio</h4>
+                        <p class="text-muted">Research Engineer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> rodelio_dahayn@rp.sg</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-6">
+                    <div class="team-member">
+                        <img src="/img/profile/Ben_2.jpg" class="img-responsive img-circle" alt="" width="200" height="200">
+                        <h4>Ben</h4>
+                        <p class="text-muted">Intern</p>
+                         <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="team-member">
+                        <img src="/img/profile/Nickman_2.jpg" class="img-responsive img-circle" alt="" width="200" height="200">
+                        <h4>Nick</h4>
+                        <p class="text-muted">Intern</p>
+                       <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="col-md-6">
+                    <div class="team-member">
+                        <img src="/img/profile/Kit_2.jpg" class="img-responsive img-circle" alt="" width="200" height="200">
+                        <h4>Kit</h4>
+                        <p class="text-muted">Intern</p>
+                       <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>Our Customers</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+                 <div class="row">
+
+                    <div class="footer-col col-md-3">
+                        <img class="img-thumbnail" src="/img/partners/coolasia.png" width="150" height="150">
+                        <p>COOLASIA</p>
+                    </div>
+                    <div class="footer-col col-md-3">
+                        <img class="img-thumbnail" src="/img/partners/crosstrack.png" width="150" height="150">
+                        <p>CrossTrack</p>
+
+                    </div>
+                    <div class="footer-col col-md-3">
+                        <img class="img-thumbnail" src="/img/partners/dewtouch.png" width="150" height="150">
+                        <p>CrossTrack</p>
+                    </div>
+                     <div class="footer-col col-md-3">
+                        <img class="img-thumbnail" src="/img/partners/lim-kee-food.png" width="150" height="150">
+                        <p>Lim Kee Food</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

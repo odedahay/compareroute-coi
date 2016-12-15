@@ -1,0 +1,719 @@
+{% extends "main.html" %}
+{% block title %}Account User{% endblock %}
+{% block body %} index compare-api{% endblock %}
+{% include "commons/navbar.html" %}
+{% block content %}
+
+<div class="container theme-showcase" role="main">
+    <div class="page-header userPage">
+        <h2>CompareRoute API</h2>
+         <p class="lead">API service details</p>
+
+        <hr />
+    </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="body_content">
+				<p>The CompareRoute API offers developers an easy way to utilize CompareRoute's service.</p>
+                    <p>A request to the API is done using an HTTP POST request with a JSON body. The API key is part of the URL. A request can be made either by HTTP or by HTTPS.  </p>
+                    <p>Example URL:</p>
+                    <div class="tab-content">
+                        <pre>
+                             http://compare-route-3.appspot.com/api/multi_truck/v1?userId=client@email.com&keyId=4db04e96fb6becab8959918fee80560d1ddb177109dcd5a5
+                        </pre>
+                    </div>
+                    <p>Required Parameters for API </p>
+                    <table class="tableL table-bordered">
+
+                        <thead>
+                            <tr>
+                                <th>Parameter Name</th>
+                                <th>Parameter Value</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>userId</td>
+                                <td>Client username</td>
+                                <td>client@email.com</td>
+                            </tr>
+                            <tr>
+                                <td>keyId</td>
+                                <td>Key ID</td>
+                                <td>4db04e96fb6becab8959918fee80560d1ddb177109dcd5a5</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <p><strong>Note</strong> that the Key ID is made up of 48 characters that can be found in the details in API details.</p>
+				<h3>API Access URL</h3>
+				<!--<p>The base URL for the CompareRoute API is <br />-->
+                    <!--http://compare-route-3.appspot.com/api/v1 </p>-->
+
+                <p>The base URL for the CompareRoute API request for each type of optimization</p>
+                    <table class="tableL table-bordered">
+
+                        <thead>
+                            <tr>
+                                <th>Type of Optimization</th>
+                                <th>API URL</th>
+                                <th>HTTP Request</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Route for Multiple Truck</td>
+                                <td>api/multi_truck/v1</td>
+                                <td>POST</td>
+                            </tr>
+                            <tr>
+                                <td>Route by Maximize Truck Capacity</td>
+                                <td>api/truck_capacity/v1</td>
+                                <td>POST</td>
+                            </tr>
+                            <tr>
+                                <td>Consolidated Delivery for Multiple Companies</td>
+                                <td>api/multiple_companies/v1</td>
+                                <td>POST</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                <h3>Request Body</h3>
+                <p>The body of a status request is formatted in JSON and contains a few numbers of mandatory and optional parameters. The parameters are summarized in Table 4 below.</p>
+
+                   <br />
+                    <table class="table table-hover table-striped" style="text-align:left">
+
+                        <thead>
+                            <tr>
+                                <th>JSON Object</th>
+                                <th>Required</th>
+                                <th>Definition</th>
+                                <th>Format in JSON</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>starting_address</td>
+                                <td>Mandatory</td>
+                                <td>Starting address of the delivery route. </td>
+                                <td>String</td>
+                            </tr>
+                            <tr>
+                                <td>number_of_vehicle</td>
+                                <td>Mandatory</td>
+                                <td>Number of vehicle available for use. Format in integer</td>
+                                <td>Integer</td>
+                            </tr>
+                            <tr>
+                                <td>order_details</td>
+                                <td>Mandatory</td>
+                                <td>Array containing details of all orders</td>
+                                <td>Array</td>
+                            </tr>
+                            <tr>
+                                <td>has_return</td>
+                                <td>Mandatory</td>
+                                <td>Containing value of returning vehicle to starting postal</td>
+                                <td>Boolean</td>
+                            </tr>
+                        <tr>
+                                <td>options_truck</td>
+                                <td>Mandatory</td>
+                                <td>Containing value for event trigger of optimization option</td>
+                                <td>Boolean</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+
+                    <p><strong>Properties of order_details are presented:</strong></p>
+
+                    <table class="table table-hover table-striped" style="text-align:left">
+
+                        <thead>
+                            <tr>
+                                <th>JSON Object</th>
+                                <th>Required</th>
+                                <th>Array </th>
+                                <th>Format in JSON</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>postal_code</td>
+                                <td>Mandatory</td>
+                                <td>1st column in bracket </td>
+                                <td>String</td>
+                            </tr>
+                            <tr>
+                                <td>order_id</td>
+                                <td>Optional</td>
+                                <td>2nd column in bracket</td>
+                                <td>String</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+
+                <h3>Authentication</h3>
+				<p>The CompareRoute API use HTTP Basic Access Authentication as its authentication mechanism.
+					Use your e-mail address as the username and the API key as the password. You can generate or view your API key at the API Key box at the top of the page.</p>
+
+                <p>Example Request body</p>
+                 <div class="main_tab">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+
+                        <li role="presentation" class="active">
+                            <a href="#tab_1" aria-controls="tab_1" role="tab" data-toggle="tab">Multiple Trucks </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tab_2" aria-controls="tab_2" role="tab" data-toggle="tab">Maximizing Truck Capacity </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tab_3" aria-controls="tab_3" role="tab" data-toggle="tab">Consolidated Delivery</a>
+                        </li>
+
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <div role="tabpanel" class="tab-pane active" id="tab_1">
+
+                            <div class="row">
+
+                                <div class="box_presentation">
+                                    <h3>Example Request body: Route for Multiple Trucks </h3>
+                                    <pre class="pre_box">
+                                        {
+                                            "starting_postal": "738964",
+                                            "order_details": [
+                                                              ["469001", "Order01"],
+                                                              ["760450", "Order02"],
+                                                              ["596937", "Order03"],
+                                                              ["596740", "Order04"],
+                                                              ["098585", "Order05"],
+                                                              ["109680", "Order06"],
+                                                              ["560405", "Order07"],
+                                                              ["278986", "Order08"],
+                                                              ["431011", "Order09"],
+                                                              ["460102", "Order10"]
+
+                                                            ],
+                                            "number_of_vehicle" : 1,
+                                            "has_return": "true",
+                                            "options_truck": "true"
+                                            "time_windows": "false"
+                                        }
+                                    </pre>
+                                </div>
+
+                                <div class="box_presentation">
+                                    <h3>Example Request body: Route for Multiple Trucks with Time Windows</h3>
+                                    <pre class="pre_box">
+                                        {
+                                            "starting_postal": "738964",
+                                            "order_details": [
+                                                                ["369974", "Order01", "09:00:00", "12:00:00"],
+                                                                ["760450", "Order02", "07:00:00", "8:00:00"],
+                                                                ["596937", "Order03", "13:00:00", "14:00:00"],
+                                                                ["596740", "Order04", "10:00:00", "11:00:00"],
+                                                                ["560405", "Order05", "09:30:00", "10:20:00"],
+                                                                ["543262", "Order06", "15:00:00", "18:00:00"],
+                                                                ["520156", "Order07", "14:00:00", "17:00:00"],
+                                                                ["469001", "Order08", "09:00:00", "12:00:00"],
+                                                                ["760450", "Order09", "11:00:00", "11:30:00"],
+                                                                ["596937", "Order10", "13:00:00", "15:00:00"],
+                                                                ["596740", "Order11", "16:00:00", "17:00:00"],
+                                                                ["098585", "Order12", "13:00:00", "15:00:00"],
+                                                                ["109680", "Order13", "16:00:00", "17:00:00"],
+                                                                ["189637", "Order14", "15:00:00", "18:00:00"]
+
+                                                            ],
+                                            "number_of_vehicle" : 1,
+                                            "has_return": "true",
+                                            "options_truck": "true",
+                                            "time_windows": "true"
+                                        }
+                                    </pre>
+                                </div>
+
+                            </div>
+                        </div><!--End of tab panel -->
+                        <div role="tabpanel" class="tab-pane" id="tab_2">
+                            <div class="row">
+                                <div class="box_presentation">
+                                    <h3>Example Request body: Route by Maximizing Truck Capacity  </h3>
+                                    <pre class="pre_box">
+                                        {
+                                            "starting_postal": "461051",
+                                            "order_details": [
+                                                               ["369974", "Order01", 1],
+                                                                ["760450", "Order02", 1],
+                                                                ["596937", "Order03", 1],
+                                                                ["596740", "Order04", 1],
+                                                                ["560405", "Order05", 1],
+                                                                ["543262", "Order06", 1],
+                                                                ["520156", "Order07", 1],
+                                                                ["469001", "Order08", 1],
+                                                                ["760450", "Order09", 1],
+                                                                ["596937", "Order10", 1],
+                                                                ["596740", "Order11", 1],
+                                                                ["098585", "Order12", 1],
+                                                                ["109680", "Order13", 1],
+                                                                ["189637", "Order14", 1]
+                                                            ],
+                                            "truck_details":
+                                                [
+                                                    {
+                                                       "type_of_truck": "AAA",
+                                                        "truck_capacity": 5,
+                                                        "num_of_truck": 1
+                                                    },
+                                                    {
+                                                       "type_of_truck": "BBB",
+                                                        "truck_capacity": 5,
+                                                        "num_of_truck": 1
+                                                    }
+
+                                                ],
+                                            "has_return": "true",
+                                            "priority_capacity": "true",
+                                            "time_windows": "false"
+                                        }
+                                    </pre>
+                                </div>
+
+                                <div class="box_presentation">
+                                    <h3>Example Request body: Route by Maximizing Truck Capacity with Time Windows</h3>
+                                    <pre class="pre_box">
+                                        {
+                                            "starting_postal": "461051",
+                                            "order_details": [
+                                                                ["369974", "Order01", 1, "09:00:00", "12:00:00"],
+                                                                ["760450", "Order02", 1, "07:00:00", "8:00:00"],
+                                                                ["596937", "Order03", 1, "13:00:00", "14:00:00"],
+                                                                ["596740", "Order04", 1, "10:00:00", "11:00:00"],
+                                                                ["560405", "Order05", 1, "09:30:00", "10:20:00"],
+                                                                ["543262", "Order06", 1, "15:00:00", "18:00:00"],
+                                                                ["520156", "Order07", 1, "14:00:00", "17:00:00"],
+                                                                ["469001", "Order08", 1, "09:00:00", "12:00:00"],
+                                                                ["760450", "Order09", 1, "11:00:00", "11:30:00"],
+                                                                ["596937", "Order10", 1, "13:00:00", "15:00:00"],
+                                                                ["596740", "Order11", 1, "16:00:00", "17:00:00"],
+                                                                ["098585", "Order12", 1, "13:00:00", "15:00:00"],
+                                                                ["109680", "Order13", 1, "16:00:00", "17:00:00"],
+                                                                ["189637", "Order14", 1, "15:00:00", "18:00:00"]
+
+                                                            ],
+                                            "truck_details":
+                                                [
+                                                    {
+                                                       "type_of_truck": "AAA",
+                                                        "truck_capacity": 10,
+                                                        "num_of_truck": 1
+                                                    },
+                                                    {
+                                                       "type_of_truck": "BBB",
+                                                        "truck_capacity": 5,
+                                                        "num_of_truck": 1
+                                                    }
+
+                                                ],
+                                            "has_return": "true",
+                                            "priority_capacity": "true",
+                                            "time_windows": "true"
+                                        }
+                                    </pre>
+                                </div>
+
+                            </div>
+
+                        </div><!--End of the 2nd tab -->
+                        <div role="tabpanel" class="tab-pane" id="tab_3">
+                            <div class="row">
+                                <div class="box_presentation">
+                                    <h3>Example Request body: Consolidated Delivery for Multiple Companies </h3>
+                                    <pre class="pre_box">
+                                        {
+                                             "companies_hq": [
+                                                {
+                                                  "starting_postal": "469001"
+                                                },
+                                                {
+                                                  "starting_postal": "389458"
+                                                }
+                                             ],
+                                             "order_details": [
+                                                    ["369974", "Order01", 1, "Company_A"],
+                                                    ["760450", "Order02", 1, "Company_A"],
+                                                    ["596937", "Order03", 1, "Company_A"],
+                                                    ["596740", "Order04", 1, "Company_A"],
+                                                    ["560405", "Order05", 1, "Company_A"],
+                                                    ["543262", "Order06", 1, "Company_A"],
+                                                    ["520156", "Order07", 1, "Company_A"],
+                                                    ["469001", "Order08", 1, "Company_B"],
+                                                    ["760450", "Order09", 1, "Company_B"],
+                                                    ["596937", "Order10", 1, "Company_B"],
+                                                    ["596740", "Order11", 1, "Company_B"],
+                                                    ["098585", "Order12", 1, "Company_B"],
+                                                    ["109680", "Order13", 1, "Company_B"],
+                                                    ["189637", "Order14", 1, "Company_B"]
+                                             ],
+
+                                             "multi_truck_details": [
+                                                {
+                                                  "number_of_vehicle": 1
+                                                },
+                                                {
+                                                  "number_of_vehicle": 1
+                                                }],
+                                             "num_comp_val" : 2,
+                                             "has_return": "true",
+                                             "priority_capacity_comp": "false",
+                                             "sort_company": "true",
+                                             "time_windows": "false"
+                                        }
+                                    </pre>
+                                </div>
+
+                                <div class="box_presentation">
+                                    <h3>Example Request body: Consolidated Delivery for Multiple Companies  with Time Windows</h3>
+                                    <pre class="pre_box">
+                                        {
+                                             "companies_hq": [
+                                                {
+                                                  "starting_postal": "469001"
+                                                },
+                                                {
+                                                  "starting_postal": "389458"
+                                                }
+                                             ],
+                                             "order_details": [
+                                                     ["369974", "Order01", 1, "Company_A"],
+                                                    ["760450", "Order02", 1, "Company_A"],
+                                                    ["596937", "Order03", 1, "Company_A"],
+                                                    ["596740", "Order04", 1, "Company_A"],
+                                                    ["560405", "Order05", 1, "Company_A"],
+                                                    ["543262", "Order06", 1, "Company_A"],
+                                                    ["520156", "Order07", 1, "Company_A"],
+                                                    ["469001", "Order08", 1, "Company_B"],
+                                                    ["760450", "Order09", 1, "Company_B"],
+                                                    ["596937", "Order10", 1, "Company_B"],
+                                                    ["596740", "Order11", 1, "Company_B"],
+                                                    ["098585", "Order12", 1, "Company_B"],
+                                                    ["109680", "Order13", 1, "Company_B"],
+                                                    ["189637", "Order14", 1, "Company_B"]
+                                             ],
+
+                                             "multi_truck_details": [
+                                                    {
+                                                        "type_of_truck": "AAA",
+                                                        "truck_capacity": 3,
+                                                        "num_of_truck": 1
+                                                    },
+                                                    {
+                                                        "type_of_truck": "BBB",
+                                                        "truck_capacity": 3,
+                                                        "num_of_truck": 1
+                                                    }],
+                                          "num_comp_val" : 2,
+                                             "has_return": "true",
+                                             "priority_capacity_comp": "true",
+                                             "sort_company": "true",
+                                             "time_windows": "false"
+                                        }
+                                    </pre>
+                                </div>
+
+                            </div>
+
+                        </div><!--End of the 2nd tab -->
+                    </div><!--End of tab-content -->
+
+                 </div><!--End of main Tab -->
+
+
+
+                    <h3>CompareRoute web service sample codes</h3>
+                    <p>For other various program languages to make using the CompareRoute REST API easier to use.
+                        We have list sample codes available for user clients:</p>
+
+                    <div class="main_tab">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+
+                            <li role="presentation" class="active">
+                                <a href="#code_1" aria-controls="code_1" role="tab" data-toggle="tab">JavaScript's code </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#code_2" aria-controls="code_2" role="tab" data-toggle="tab">Python's Code</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#code_3" aria-controls="code_3" role="tab" data-toggle="tab">PHP's Code</a>
+                            </li>
+
+                        </ul>
+                         <!-- Tab panes -->
+                        <div class="tab-content">
+
+                            <div role="tabpanel" class="tab-pane active" id="code_1">
+                                <div class="row">
+                                    <div class="presentation_box">
+                                        <h3>Sample Request for JavaScript Code</h3>
+                                        <pre>
+                                            var data = JSON.stringify({
+                                              "starting_postal": "738966",
+                                              "order_details": [
+                                                [
+                                                  "369974",
+                                                  "Order01",
+                                                  "09:00:00",
+                                                  "12:00:00"
+                                                ],
+                                                [
+                                                  "760450",
+                                                  "Order02",
+                                                  "07:00:00",
+                                                  "8:00:00"
+                                                ],
+                                                [
+                                                  "596937",
+                                                  "Order03",
+                                                  "13:00:00",
+                                                  "14:00:00"
+                                                ],
+                                                [
+                                                  "596740",
+                                                  "Order04",
+                                                  "10:00:00",
+                                                  "11:00:00"
+                                                ],
+                                                [
+                                                  "560405",
+                                                  "Order05",
+                                                  "09:30:00",
+                                                  "10:20:00"
+                                                ],
+                                                [
+                                                  "543262",
+                                                  "Order06",
+                                                  "15:00:00",
+                                                  "18:00:00"
+                                                ],
+                                                [
+                                                  "520156",
+                                                  "Order07",
+                                                  "14:00:00",
+                                                  "17:00:00"
+                                                ],
+                                                [
+                                                  "469001",
+                                                  "Order08",
+                                                  "09:00:00",
+                                                  "12:00:00"
+                                                ],
+                                                [
+                                                  "760450",
+                                                  "Order09",
+                                                  "11:00:00",
+                                                  "11:30:00"
+                                                ],
+                                                [
+                                                  "596937",
+                                                  "Order10",
+                                                  "13:00:00",
+                                                  "15:00:00"
+                                                ],
+                                                [
+                                                  "596740",
+                                                  "Order11",
+                                                  "16:00:00",
+                                                  "17:00:00"
+                                                ],
+                                                [
+                                                  "098585",
+                                                  "Order12",
+                                                  "13:00:00",
+                                                  "15:00:00"
+                                                ],
+                                                [
+                                                  "109680",
+                                                  "Order13",
+                                                  "16:00:00",
+                                                  "17:00:00"
+                                                ],
+                                                [
+                                                  "189637",
+                                                  "Order14",
+                                                  "15:00:00",
+                                                  "18:00:00"
+                                                ]
+                                              ],
+                                              "number_of_vehicle": 1,
+                                              "has_return": "true",
+                                              "options_truck": "true",
+                                              "time_windows": "false"
+                                            });
+
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.withCredentials = true;
+
+                                            xhr.addEventListener("readystatechange", function () {
+                                              if (this.readyState === 4) {
+                                                console.log(this.responseText);
+                                              }
+                                            });
+
+                                            xhr.open("POST", "http://compare-route-3.appspot.com/api/multi_truck/v1?userId=username@sample.com&keyId=19c2806b3d3b7891a97cb358c51419afc7b26a0457c48d6a");
+                                            xhr.setRequestHeader("content-type", "application/json");
+                                            xhr.setRequestHeader("cache-control", "no-cache");
+
+                                            xhr.send(data);
+
+                                        </pre>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="code_2">
+                                <div class="row">
+                                    <div class="presentation_box">
+                                        <h3>Sample Request for Python Requests</h3>
+                                        <pre>
+                                            import requests
+
+                                            url = "http://compare-route-3.appspot.com/api/multi_truck/v1"
+                                            querystring = {"userId":"username@sample.com","keyId":"19c2806b3d3b7891a97cb358c51419afc7b26a0457c48d6a"}
+
+                                            payload = "{\n    \"starting_postal\": \"738966\",\n    \"order_details\": [\n                        [\"369974\", \"Order01\", \"09:00:00\", \"12:00:00\"],\n                        [\"760450\", \"Order02\", \"07:00:00\", \"8:00:00\"],\n                        [\"596937\", \"Order03\", \"13:00:00\", \"14:00:00\"],\n                        [\"596740\", \"Order04\", \"10:00:00\", \"11:00:00\"],\n                        [\"560405\", \"Order05\", \"09:30:00\", \"10:20:00\"],\n                        [\"543262\", \"Order06\", \"15:00:00\", \"18:00:00\"],\n                        [\"520156\", \"Order07\", \"14:00:00\", \"17:00:00\"],\n                        [\"469001\", \"Order08\", \"09:00:00\", \"12:00:00\"],\n                        [\"760450\", \"Order09\", \"11:00:00\", \"11:30:00\"],\n                        [\"596937\", \"Order10\", \"13:00:00\", \"15:00:00\"],\n                        [\"596740\", \"Order11\", \"16:00:00\", \"17:00:00\"],\n                        [\"098585\", \"Order12\", \"13:00:00\", \"15:00:00\"],\n                        [\"109680\", \"Order13\", \"16:00:00\", \"17:00:00\"],\n                        [\"189637\", \"Order14\", \"15:00:00\", \"18:00:00\"]\n\n                    ],\n    \"number_of_vehicle\" : 1,\n    \"has_return\": \"true\",\n    \"options_truck\": \"true\",\n    \"time_windows\": \"false\"\n}"
+                                            headers = {
+                                                'content-type': "application/json",
+                                                'cache-control': "no-cache",
+                                                }
+
+                                            response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
+
+                                            print(response.text)
+
+                                        </pre>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="code_3">
+                                <div class="row">
+                                    <div class="presentation_box">
+                                        <h3>Sample Request for Python Requests</h3>
+                                        <pre>
+                                            <?php
+
+                                            $request = new HttpRequest();
+                                            $request->setUrl('http://compare-route-3.appspot.com/api/multi_truck/v1');
+                                            $request->setMethod(HTTP_METH_POST);
+
+                                            $request->setQueryData(array(
+                                              'userId' => 'username@sample.com',
+                                              'keyId' => '19c2806b3d3b7891a97cb358c51419afc7b26a0457c48d6a'
+                                            ));
+
+                                            $request->setHeaders(array(
+                                              'postman-token' => '81d08fdc-046f-c36d-c4c7-0b4ccd997b51',
+                                              'cache-control' => 'no-cache',
+                                              'content-type' => 'application/json'
+                                            ));
+
+                                            $request->setBody('{
+                                                "starting_postal": "738966",
+                                                "order_details": [
+                                                                    ["369974", "Order01", "09:00:00", "12:00:00"],
+                                                                    ["760450", "Order02", "07:00:00", "8:00:00"],
+                                                                    ["596937", "Order03", "13:00:00", "14:00:00"],
+                                                                    ["596740", "Order04", "10:00:00", "11:00:00"],
+                                                                    ["560405", "Order05", "09:30:00", "10:20:00"],
+                                                                    ["543262", "Order06", "15:00:00", "18:00:00"],
+                                                                    ["520156", "Order07", "14:00:00", "17:00:00"],
+                                                                    ["469001", "Order08", "09:00:00", "12:00:00"],
+                                                                    ["760450", "Order09", "11:00:00", "11:30:00"],
+                                                                    ["596937", "Order10", "13:00:00", "15:00:00"],
+                                                                    ["596740", "Order11", "16:00:00", "17:00:00"],
+                                                                    ["098585", "Order12", "13:00:00", "15:00:00"],
+                                                                    ["109680", "Order13", "16:00:00", "17:00:00"],
+                                                                    ["189637", "Order14", "15:00:00", "18:00:00"]
+
+                                                                ],
+                                                "number_of_vehicle" : 1,
+                                                "has_return": "true",
+                                                "options_truck": "true",
+                                                "time_windows": "false"
+                                            }');
+
+                                            try {
+                                              $response = $request->send();
+
+                                              echo $response->getBody();
+                                            } catch (HttpException $ex) {
+                                              echo $ex;
+                                            }
+                                           ?>
+
+                                        </pre>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!--End of main Tab -->
+
+                </div> <!--End of body content-->
+			</div>
+            <div class="col-md-4">
+                <div class="box-api">
+                    <div class="body_content">
+                        <h3>Your API Details</h3>
+                        <p>An API key is needed to use the CompareRoute REST API.</p>
+                        <table class="table table-striped" style="text-align:left">
+                        <thead>
+                            <tr>
+                                <td>Username</td>
+                                <td>{{email}}</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>API Key: </td>
+                                <td style="word-wrap:break-word">
+                                    <div  id="apikey" style="display:none;word-break:break-all;">{{api_key_for_user}}</div>
+                                     <button onclick="myFunction()" id="btn" class="btn btn-info">Show API Key</button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- container -->
+</div>
+
+<br />
+<script>
+    function myFunction(){
+
+    	document.getElementById("apikey").style.display = 'inline';
+    	document.getElementById('btn').style.visibility = 'hidden';
+	}
+</script>
+{% endblock %}

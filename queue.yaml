@@ -1,0 +1,6 @@
+total_storage_limit: 256M
+queue:
+- name: csvparsing
+  rate: 5/s
+  bucket_size: 5
+#  max_concurrent_requests: 1

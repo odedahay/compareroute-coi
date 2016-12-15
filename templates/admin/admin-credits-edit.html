@@ -1,0 +1,62 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Summary Route Result{% endblock %}
+{% block content %}
+
+    <div class="page-header-admin">
+        <h2>Update Credit Access</h2>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+			 {% if update_error %}
+				<div id="ajax-errors" class="alert alert-danger" role="alert" style="width: 300px">
+				    <p style="text-align: center">{{update_error}}</p>
+				</div>
+            {% endif %}
+            <form method="POST" action="/admin-credits-edit">
+
+				<label>User ID</label>
+				<input class="form-control" type="text" style="pointer-events: none; border-color:#eee"  id="user_id" name="user_id" value="{{user_accounts.key.id()}}">
+				<br />
+
+                <label>Full Name</label>
+				<input class="form-control" type="text" id="full_name" name="full_name" value="{{user_accounts.name}}" style="pointer-events: none; border-color:#eee" >
+				<br />
+
+				<label>User Email</label>
+                <input class="form-control" type="text" id="user_email" name="user_email" value="{{user_accounts.email}}" style="pointer-events: none; border-color:#eee" >
+				<br />
+
+				<label>API Key</label><br />
+				<input class="form-control" type="text" id="api_Key" name="api_Key" value="{{user_accounts.api_key}}" style="pointer-events: none; border-color:#eee" >
+
+				<br />
+                <label>API Credits</label><br />
+				<input class="form-control" type="number" id="api_credits" name="api_credits" value="{{user_accounts.api_credits}}" required>
+				<span id="">&nbsp</span>
+				<br />
+
+				<label>Admin User Access</label><br />
+				<input class="form-control" type="text" id="user_access" name="user_access" value="{{user_accounts.user_admin}}" style="pointer-events: none; border-color:#eee" >
+
+				<br />
+				<br />
+
+				<button type="submit" id="creditAccess_Btn" class="btn btn-primary" disabled="disabled">Save</button>
+
+				<a href="/admin-credits" class="btn btn-info">
+					<i class="fa fa-step-backward" aria-hidden="true"></i> Cancel</a>
+			</form>
+        </div>
+        <div class="col-xs-4">
+
+        </div>
+
+    </div>
+
+
+<a href="#" class="scrollToTop">
+    <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+    <!--Scroll To Top-->
+</a>
+
+{% endblock %}

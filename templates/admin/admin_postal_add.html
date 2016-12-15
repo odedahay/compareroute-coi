@@ -1,0 +1,50 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+
+	<div class="page-header-admin">
+            <h2>Postal Code List</h2>
+			<h3>Add New Postal Code</h3>
+    </div>
+	<div class="row">
+		{% if login_status %}
+		<div id="ajax-errors" class="alert alert-danger" role="alert">
+			<p style="text-align: center">{{login_status}}</p>
+		</div>
+
+		{% elif login_status %}
+		<div id="ajax-errors" class="alert alert-success" role="alert">
+			<p style="text-align: center">{{login_status}}</p>
+		</div>
+		{% endif %}
+	</div>
+	<div class="row">
+
+		 <div class="col-md-12">
+			<form method="POST" action="/admin-postal-add">
+
+				<label>Postal Code </label>
+				<input class="form-control" type="text" id="postal_code" name="postal_code" value="{{postal_code}}" required>
+				<br /><br />
+
+				<label>Latitude</label>
+					<input class="form-control" type="text" id="latitude_val" name="latitude_val" value="{{latVal}}" required>
+				<span id="new_password_status">&nbsp</span>
+				<br />
+				<br />
+				<label>Longtitude</label><br />
+				<input class="form-control" type="text" id="longtitude_val" name="longtitude_val" value="{{lngVal}}"required>
+				<span id="cfm_new_password_status">&nbsp</span>
+				<br /><br />
+
+				<a href="/admin-postal-chk?postal={{postal_code}}" class="btn btn-info"><i class="fa fa-step-backward" aria-hidden="true"></i> Cancel</a>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		 </div>
+
+	</div>
+<!-- container -->
+
+{% endblock %}

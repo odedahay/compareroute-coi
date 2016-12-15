@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% block title %}Compare Route - Register{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Register New Account</</h2>
+            </div>
+            <div class="row">
+                <form class="form-horizontal" action="/register" method="post">
+
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 col-lg-offset-1 control-label">Name</label>
+                        <div class="col-lg-4">
+                            <input type="name" class=form-control" name="name" placeholder="Full Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-lg-2 col-lg-offset-1 control-label">Email</label>
+                        <div class="col-lg-4">
+                            <input type="email" class=form-control" name="email" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
+                        <div class="col-lg-4">
+                            <input type="password" class=form-control" name="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- container -->
+</div><!-- jumbotron -->
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "main.html" %}
+
+{% block title %}Log into Compare Route {% endblock %}
+
+
+{% block content %}
+
+
+<!-- Fixed navbar -->
+<!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                <img class="img-responsive" src="img/logo/compare-route.png" alt="" width="230">
+               <!--  CompareRoute -->
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+				{% if email %}
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li><a href="/profile"><i class="fa fa-user"></i> {{ email }}</a></li>
+						<input type="hidden" name="email_value" id="email_value" value="{{ email }}">
+	                    <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                </ul>
+            	{% else %}
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                    	 <a href="/login"><i class="fa fa-key"></i> Sign in</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-user"></i> Register</a></li>
+
+                </ul>
+            {% endif %}
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+
+        <form class="form-signin form-signin-top" action="/login" method="post">
+
+            <h2 class="form-signin-heading">Please sign in</h2>
+            {% if login_status %}
+
+            <div id="ajax-errors" class="alert alert-success" role="alert">
+                <p style="text-align: center">{{ login_status }}</p>
+            </div>
+            {% elif register_error %}
+            <div id="ajax-errors" class="alert alert-danger" role="alert">
+                <p style="text-align: center">{{ register_error }}</p>
+            </div>
+
+            {% endif %}
+
+            <label for="email_user" class="sr-only">Email address</label>
+            <input type="email"  name="email" id="email_user" class="form-control" placeholder="Email address" required autofocus>
+            <label for="password_user" class="sr-only">Password</label>
+            <input type="password" id="password_user" name="password" class="form-control" placeholder="Password" required>
+            <div class="help-block text-right">
+                <a href="#" data-toggle="modal" data-target="#myRecoverPass">Forget the password ?</a>
+             </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me"> Stay signed in
+              </label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" id="login-button">Sign in  <i id="login-button-icon" class="fa fa-arrow-right"></i></button>
+            <div class="bottom text-center">
+                New here ? <a href="#" data-toggle="modal" data-target="#myModal"><b>Join Us</b></a>
+            </div>
+      </form>
+    </div><!-- container -->
+{% endblock %}

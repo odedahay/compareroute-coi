@@ -1,0 +1,78 @@
+{% extends "main.html" %}
+{% block title %}Reset Password in Compare Route {% endblock %}
+{% block content %}
+
+<!-- Fixed navbar -->
+<!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                <img class="img-responsive" src="img/logo/compare-route.png" alt="" width="230">
+               <!--  CompareRoute -->
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+				{% if email %}
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li><a href="/profile"><i class="fa fa-user"></i> {{ email }}</a></li>
+						<input type="hidden" name="email_value" id="email_value" value="{{ email }}">
+	                    <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                </ul>
+            	{% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                    	 <a href="/login"><i class="fa fa-key"></i> Sign in</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-user"></i> Register</a></li>
+					<!-- {# <li><a href="/commons/register"><i class="fa fa-user"></i> Register</a></li>#} -->
+                </ul>
+            {% endif %}
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+
+        <form class="form-signin form-signin-top" action="/reset" method="POST">
+
+            <h2 class="form-signin-heading">Please enter your new password</h2>
+            {% if reset_status %}
+				<div id="ajax-errors" class="alert alert-success" role="alert">
+					<p style="text-align: center">{{ reset_status }}</p>
+				</div>
+            {% elif reset_error %}
+				<div id="ajax-errors" class="alert alert-danger" role="alert">
+					<p style="text-align: center">{{ reset_error }}</p>
+				</div>
+            {% endif %}
+			<label class="sr-only">Email Address</label>
+			<input type="email" name="email_add" class="form-control" style="pointer-events: none; border-color:#eee" value="{{email_account}}">
+
+			<label class="sr-only">New Password</label>
+            <input type="password" class="form-control" id="new_password"  name="new_password" placeholder="New Password" required autofocus>
+
+			<label class="sr-only">Confirm Password</label>
+            <input type="password" class="form-control" id="cfm_new_password" name="cfm_new_password" placeholder="Confirm Password" required>
+			<span id='message_validation'></span>
+
+			<br /><br />
+
+            <button id="btn_profile" class="btn btn-lg btn-primary btn-block" type="submit">Submit <i id="login-button-icon" class="fa fa-arrow-right"></i></button>
+
+      </form>
+    </div><!-- container -->
+{% endblock %}

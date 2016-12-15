@@ -1,0 +1,184 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Summary Route Details{% endblock %}
+
+{% block content %}
+
+        <div class="page-header-admin">
+            <h2>User Log Activity - API</h2>
+            <p class="lead">Route Log Details</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right">
+                     {% for back in api_routes %}
+                        <span>
+                            <a href="/admin-user?user_id={{back.user_id}}" class="btn btn-info btn-sm">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+
+            <div class="col-md-12">
+            {% for route_web in api_routes %}
+                    <table class="tableAdmin table-bordered">
+                        <tr>
+                            <th>User ID </th>
+                            <th>Starting Postal Code </th>
+                            <th>No. of Truck </th>
+
+                            {% if route_by == 2 %}
+                                <th>Truck Capacity </th>
+                            {% endif %}
+
+                            <th>Sorted Postal Code </th>
+                            <th>Return Truck to Starting Postal (HQ) </th>
+                            <th>Current Total Distance</th>
+                            <th>Proposed Total Distance</th>
+                            <th>Total Savings (%)</th>
+                        </tr>
+                        <tr>
+                            <td> {{ route_web.user_id }}</td>
+                            <td> {{ route_web.starting_point }}</td>
+                            <td> {{ route_web.no_vehicle }}</td>
+
+                             <!--Show Cargo unit if Truck Capacity is selected-->
+                            {% if route_by == 2 %}
+                                <td> {{ route_web.vehicle_capacity }}</td>
+                            {% endif %}
+
+                            <td> {{ route_web.postal_count }}</td>
+                            <td> {{ route_web.return_vehicle }}</td>
+                            <td>{{ route_web.current_total_dist }}</td>
+                            <td>{{ route_web.proposed_total_dist }}</td>
+                            <td> {{ route_web.percentage_savings }} %</td>
+                        </tr>
+                    </table>
+            {% endfor %}
+
+            </div>
+        </div>
+
+         <div class="row">
+             <div class="col-md-12">
+                <h3>Proposed Route</h3>
+                 {% for route in routes_api %}
+                    <p style="font-size:14px;">The Lat & Long Coordinates of {{ route.starting_point }} : {{ route.origin_destination }} </p>
+                 {% endfor %}
+
+                <table class="tableAdmin table-bordered">
+                    <tr>
+                        <th>Sequence Order</th>
+                        <th>Truck Group</th>
+                        <th>Order ID</th>
+                         {% if route_by == 2 %}
+                            <th>Cargo Unit</th>
+                         {% endif %}
+
+                        {% if route_by == 3 %}
+                            <th>Company Id</th>
+                         {% endif %}
+
+                        <th>Origin</th>
+                        <th>Destination <br />(Proposed Route)</th>
+                        <th>Latitude</th>
+                        <th>Longtitude</th>
+                        <th>Route between points</th>
+                        <th>Distance (km)</th>
+                    </tr>
+                     {% for propose in api_proposed %}
+                    <tr>
+                        <td>{{ propose.rank_id }}</td>
+                        <td>{{ propose.vehicle_id }}</td>
+                        <td>{{ propose.order_id }}</td>
+
+                        {% if route_by == 2 %}
+                        <td>{{ propose.cargo_unit }}</td>
+                        {% endif %}
+
+                        {% if route_by == 3 %}
+                            <td>{{ propose.company_id }}</td>
+                        {% endif %}
+
+                        <td>{{ propose.origin_code }}</td>
+                        <td>{{ propose.postal_code }}</td>
+                        <td>{{ propose.longVal }}</td>
+                        <td>{{ propose.latVal }}</td>
+                        <td><a href="{{ propose.url_id }}" target="_blank"><span style="font-size:13px;">{{ propose.url_id }}</span></a></td>
+                        <td>{{ propose.distance }}</td>
+                    </tr>
+                     {% endfor %}
+                     {% for route in api_routes %}
+                    <tr>
+                        <td colspan="9" style=" text-align: right;">Proposed Total Distance</td>
+                        <td><strong>{{ route.proposed_total_dist }}</strong></td>
+                    </tr>
+                     {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Current Route</h3>
+                <table class="tableAdmin table-bordered">
+                    <tr>
+                        <th>Sequence Order</th>
+                        <th>Truck Group</th>
+                        <th>Order ID</th>
+
+                        {% if route_by == 2 %}
+                            <th>Cargo Unit</th>
+                        {% endif %}
+
+                        {% if route_by == 3 %}
+                            <th>Company Id</th>
+                        {% endif %}
+
+                        <th>Origin</th>
+                        <th>Destination <br />(Proposed Route)</th>
+                        <th>Latitude</th>
+                        <th>Longtitude</th>
+                        <th>Route between points</th>
+                        <th>Distance (km)</th>
+                    </tr>
+                     {% for current in api_current %}
+                    <tr>
+                        <td>{{ current.rank_id }}</td>
+                        <td>{{ current.vehicle_id }}</td>
+                        <td>{{ current.order_id }}</td>
+
+                        {% if route_by == 2 %}
+                            <td>{{ current.cargo_unit }}</td>
+                        {% endif %}
+
+                        {% if route_by == 3 %}
+                            <td>{{ current.company_id }}</td>
+                        {% endif %}
+
+                        <td>{{ current.origin_code }}</td>
+                        <td>{{ current.postal_code }}</td>
+                        <td>{{ current.latVal }}</td>
+                        <td>{{ current.longVal }}</td>
+                        <td><a href="{{ current.url_id }}" target="_blank"><span style="font-size:13px;">{{ current.url_id }}</span></a></td>
+                        <td>{{ current.distance }}</td>
+                    </tr>
+                     {% endfor %}
+                     {% for route in api_routes %}
+                    <tr>
+                        <td colspan="9" style=" text-align: right;">Current Total Distance</td>
+                        <td><strong>{{ route.current_total_dist  }}</strong></td>
+                    </tr>
+                     {% endfor %}
+
+                </table>
+            </div>
+        </div>
+
+<!-- container -->
+
+{% endblock %}

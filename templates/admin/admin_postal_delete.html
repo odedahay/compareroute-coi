@@ -1,0 +1,64 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+        <div class="page-header-admin">
+			<br/>
+            <h2>Postal Code -  List</h2>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4"><h3>Are you sure you want to delete?</h3></div>
+            <div class="col-md-8">
+
+            </div>
+        </div>
+		<div class="row">
+
+			<div class="col-md-6">
+				{% if update_postalcode_error %}
+					<div id="ajax-errors" class="alert alert-danger" role="alert" style="width: 300px">
+					<p style="text-align: center">{{update_postalcode_error}}</p>
+					</div>
+
+					{% elif msg %}
+					<div id="ajax-errors" class="alert alert-success" role="alert"  style="width: 300px">
+					<p style="text-align: center">{{msg}}</p>
+					</div>
+					{% endif %}
+
+
+				<br />
+				<form method="POST" action="/admin-search-del">
+
+
+					<label>Postal Code </label>
+					<input class="form-control" type="text" id="postal_code" name="postal_code" value="{{ results.postal_code }}">
+					<br /><br />
+
+					<label>Lat</label>
+						<input class="form-control" type="text" id="lat_val" name="lat_val" value="{{ results.lat  }}">
+
+					<br />
+					<br />
+					<label>Long </label><br />
+					<input class="form-control" type="text" id="long_val" name="long_val" value="{{ results.long }}">
+
+					<br />
+					<br />
+					<a href="/admin-search?q={{results.postal_code}}" class="btn btn-info"><i class="fa fa-step-backward" aria-hidden="true"></i> Cancel</a>
+					<button type="submit" id="move_postal_code" class="btn btn-primary">Delete</button>
+
+
+				</form>
+
+			</div>
+
+			<div class="col-md-4"></div>
+		</div><!-- row-->
+<!-- container -->
+
+
+{% endblock %}

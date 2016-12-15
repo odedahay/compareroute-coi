@@ -1,0 +1,89 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+
+     <div class="page-header-admin">
+        <h2>Search </h2>
+        <p class="lead">Postal Code Record</p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            {% if update_save %}
+
+                <p style="color:red">{{ update_save }}</p>
+
+                <br />
+                <table class="tableAdmin table-bordered">
+                    <tr>
+                        <th>Postal Code</th>
+                        <th>Latitude</th>
+                        <th>Longtitude</th>
+                        <th style="text-align: center;">Modify</th>
+                    </tr>
+                     {% for record in results %}
+                    <tr>
+                        <td>{{ record.postal_code }}</td>
+                        <td>{{ record.lat }}</td>
+                        <td>{{ record.long }}</td>
+                        <td>
+                            <table class="table" style="margin-bottom:0px;">
+                                <tr>
+                                    <td><a href="/admin-search-edit?postal_code={{record.postal_code}}" class="btn btn-primary btn-sm" role="button">Edit</a></td>
+                                    <td><a href="/admin-search-del?postal_code={{record.postal_code}}" class="btn btn-primary btn-sm" role="button">Delete</a></td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+                    </tr>
+                     {% endfor %}
+                </table>
+
+            {% endif %}
+
+
+            {% if query %}
+                <p>Search Found: {{ query }}</p>
+                <br />
+                <table class="tableAdmin table-bordered">
+                    <tr>
+                        <th>Postal Code</th>
+                        <th>Latitude</th>
+                        <th>Longtitude</th>
+                        <th style="text-align: center;">Modify</th>
+                    </tr>
+                     {% for record in results %}
+                    <tr>
+                        <td>{{ record.postal_code }}</td>
+                        <td>{{ record.lat }}</td>
+                        <td>{{ record.long }}</td>
+                        <td>
+                            <table class="table" style="margin-bottom:0px;">
+                                <tr>
+                                    <td><a href="/admin-search-edit?postal_code={{record.postal_code}}" class="btn btn-primary btn-sm" role="button">Edit</a></td>
+                                    <td><a href="/admin-search-del?postal_code={{record.postal_code}}" class="btn btn-primary btn-sm" role="button">Delete</a></td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+                    </tr>
+                     {% endfor %}
+                </table>
+
+            {% elif errormsg %}
+
+                <p style="color:red">{{ errormsg }}</p>
+
+            {% endif %}
+
+        </div>
+    </div>
+<!-- container -->
+
+{% endblock %}

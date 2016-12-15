@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/loader.css">
+
+</head>
+<body>
+<div id="wrapper">
+
+{% include "commons/admin_navbar.html" %}
+{% include "commons/admin_reg_modal.html" %}
+
+<div id="page-wrapper">
+
+{% block content %}
+
+{% endblock %}
+<hr />
+
+</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+ <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="/static/js/route/theme.js"></script>
+<script type="text/javascript" src="/static/js/route/admin_script.js"></script>
+
+<script type="text/javascript" src="/static/js/metisMenu/metisMenu.min.js"></script>
+
+{% include "commons/admin_reg_modal_js.html" %}
+
+</body>
+</html>

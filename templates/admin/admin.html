@@ -1,0 +1,153 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Summary Route Result{% endblock %}
+
+{% block content %}
+
+
+    <div class="page-header-admin">
+        <h2>User Log Activity</h2>
+        <p class="lead">Summary List</p>
+    </div>
+
+    <div class="row">
+        <div>
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="web" role="tab" data-toggle="tab">Web App Users</a>
+            </li>
+            <li role="presentation">
+                <a href="#api" aria-controls="api" role="tab" data-toggle="tab">API App Users</a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+
+              <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="row">
+                   <h3></h3>
+                   <!--<h3>Web App Users</h3>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            {% for key, val in web_id_counts_id %}
+                               <a href="/admin-user?user_id={{key}}">
+                                   <li class="list-group-item">
+                                       <i class="fa fa-user" aria-hidden="true"></i> {{ key }}<span class="badge">{{val}}</span>
+                                   </li>
+                               </a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-8">
+
+                        <table class="tableAdmin table-bordered">
+                        <tr>
+                            <th>User id</th>
+                            <th>Created date</th>
+                            <th>Starting point</th>
+                            <th>No. vehicle</th>
+                            <!--<th>Truck Capacity</th>-->
+                            <th>Sorted Postal Code</th>
+                            <th>Returning Vehicle</th>
+                            <th>Current Total Distance</th>
+                            <th>Proposed Total Distance</th>
+                            <th>Total Savings (%)</th>
+                        </tr>
+                         {% for route_web in web_routes %}
+                        <tr>
+                            <td>
+                                <a href="/admin-summary?compare_id={{route_web.compare_id}}">{{ route_web.user_id }}</a>
+                            </td>
+                            <td>{{ route_web.created_date.strftime('%Y-%m-%d %H:%m') }}</td>
+                            <td>{{ route_web.starting_point }}</td>
+                            <td>{{ route_web.no_vehicle }}</td>
+                            <!--<td>{{ route_web.vehicle_capacity }}</td>-->
+                            <td>{{ route_web.postal_count }}</td>
+                            <td>{{ route_web.return_vehicle }}</td>
+                            <td>{{ route_web.current_total_dist }}</td>
+                            <td>{{ route_web.proposed_total_dist }}</td>
+                            <td>{{ route_web.percentage_savings }}</td>
+
+                        </tr>
+                         {% endfor %}
+                    </table>
+                    </div>
+                    <br>
+
+                </div>
+            </div><!--End of the Web App -->
+
+            <div role="tabpanel" class="tab-pane" id="api">
+                <div class="row">
+                   <h3></h3>
+                    <!--<h3>API App Users</h3>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            {% for key, val in api_id_counts_id %}
+                               <a href="/admin-user?user_id={{key}}">
+                                   <li class="list-group-item"><i class="fa fa-user" aria-hidden="true"></i> {{ key }}
+                                       <span class="badge">{{val}}</span>
+                                   </li>
+                               </a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-8">
+                        <table class="tableAdmin table-bordered">
+                        <tr>
+                            <th>User id</th>
+                            <th>Created date</th>
+                            <th>Starting point</th>
+                            <th>No. vehicle</th>
+                            <th>Truck Capacity</th>
+                            <th>Sorted Postal Code</th>
+                            <th>Returning Vehicle</th>
+                            <th>Current Total Distance</th>
+                            <th>Proposed Total Distance</th>
+                            <th>Total Savings (%)</th>
+                        </tr>
+                         {% for route_api in api_routes %}
+                        <tr>
+                            <td>
+                                <a href="/admin-summary-api?compare_id={{route_api.compare_id}}">{{ route_api.user_id }}</a>
+                            </td>
+                            <td>{{ route_api.created_date.strftime('%Y-%m-%d %H:%m') }}</td>
+                            <td>{{ route_api.starting_point }}</td>
+                            <td>{{ route_api.no_vehicle }}</td>
+                            <td>{{ route_api.vehicle_capacity }}</td>
+                            <td>{{ route_api.postal_count }}</td>
+                            <td>{{ route_api.return_vehicle }}</td>
+                            <td>{{ route_api.current_total_dist }}</td>
+                            <td>{{ route_api.proposed_total_dist }}</td>
+                            <td>{{ route_api.percentage_savings }}</td>
+
+                        </tr>
+                         {% endfor %}
+                    </table>
+                    </div>
+                    <br />
+
+                </div>
+
+            </div><!--End of the API User -->
+
+          </div><!--End of Tab -->
+
+        </div>
+
+    </div>
+
+<!-- container -->
+<a href="#" class="scrollToTop">
+    <i class="fa fa-caret-square-o-up" aria-hidden="true"></i>
+    <!--Scroll To Top-->
+</a>
+
+
+{% endblock %}

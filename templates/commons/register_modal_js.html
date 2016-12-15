@@ -1,0 +1,139 @@
+<script>
+    $('#register-button').click(function () {
+
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var company = $('#company').val();
+        var password = $('#password').val();
+
+        var register_button = $('#register-button-message');
+        register_button.html('Registering...');
+
+        // console.log(email);
+        // console.log(name);
+        // console.log(password);
+
+        var register_button_icon = $('#register-button-icon');
+        register_button_icon.removeClass('fa-arrow-right').addClass('fa-cog fa-spin');
+
+        $.ajax({
+            type: "POST",
+            url: "/register",
+            data: {
+                email: email,
+                name: name,
+                company: company,
+                password: password
+            },
+            success: function (response) {
+                console.log(response)
+                $('.modal-body').html(response['html']);
+                $('#register-button').css('display', 'none');
+
+            },
+            error: function (response) {
+                var ajax_errors = $('#ajax-errors');
+
+                if (response.responseJSON) {
+                    var title = response.responseJSON['title'];
+                    var message = response.responseJSON['message'];
+
+                    ajax_errors.css('display', 'block');
+                    ajax_errors.find('strong').html(title);
+                    ajax_errors.find('span').html(message);
+                }
+            },
+            complete: function () {
+                register_button.html('Register');
+                register_button_icon.removeClass('fa-cog fa-spin').addClass('fa-arrow-right');
+            }
+        })
+    });
+
+
+
+    $('#login_button').click(function () {
+
+        // alert('Hello Login!');
+        var emailLogin = $('#email_user').val();
+        var passwordLogin = $('#password_user').val();
+
+        // var login_button_icon = $('#login-button-icon');
+        // login_button_icon.removeClass('fa-arrow-right').addClass('fa-cog fa-spin');
+
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            data: {
+                email: emailLogin,
+                password: passwordLogin,
+            },
+            success: function(response) {
+                console.log(response)
+            },
+            error: function(response) {
+                console.log(response)
+                var ajax_errorsLog =  $('#ajax-errors_login');
+
+                var title = response.responseJSON['title'];
+                var message = response.responseJSON['message'];
+
+                ajax_errorsLog.css('display', 'block');
+                ajax_errorsLog.find('strong').html(title);
+                ajax_errorsLog.find('span').html(message);
+
+            },
+            complete: function () {
+                // login_button_icon.removeClass('fa-cog fa-spin').addClass('fa-arrow-right');
+            }
+        })
+
+    });
+
+//Password recover:
+
+    $('#email_recover_button').click(function () {
+        // alert('Hello Email');
+        var email = $('#recovery_email').val();
+
+        var recover_button = $('#recover-button-message');
+        recover_button.html('Loading...');
+
+        var recover_button_icon = $('#recover-button-icon');
+        recover_button_icon.removeClass('fa-arrow-right').addClass('fa-cog fa-spin');
+
+        $.ajax({
+            type: "POST",
+            url: "/recover",
+            data: {
+                email: email,
+            },
+            success: function(response) {  
+                console.log(response)
+                $('.modal-body').html(response['html']);
+                $('#email_recover_button').css('display', 'none');
+            },
+            error: function(response) {
+                // console.log(response)
+
+                var ajax_errorsLog =  $('#ajaxErrorsPass');
+
+                var title = response.responseJSON['title'];
+                var message = response.responseJSON['message'];
+
+                ajax_errorsLog.css('display', 'block');
+                ajax_errorsLog.find('strong').html(title);
+                ajax_errorsLog.find('span').html(message);
+
+            },
+            complete: function () {
+                recover_button.html('Register');
+                $('#recover-button-icon').removeClass('fa-cog fa-spin').addClass('fa-arrow-right');
+            }
+        })
+
+    });
+
+
+
+</script>

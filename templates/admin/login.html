@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log into Compare Route</title>
+    {% include "include_css.html" %}
+    {% include "include_js.html" %}
+</head>
+
+<body role="document">
+{% include "navbar.html" %}
+{% include "register_modal.html" %}
+
+<div class="jumbotron">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-3">
+                <h2>Login</h2>
+            </div>
+            <div class="row">
+                {% if email %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/profile">{{ email }}</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                {% else %}
+                    <form class="form-horizontal" action="/login" method="post">
+                        {% if login_status %}
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div id="ajax-errors" class="alert alert-success" role="alert">
+                                    <p style="text-align: center">{{ login_status }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="email" class="control-label col-lg-4">Email</label>
+                            <div class="col-lg-4">
+                                <input type="email" class="form-control" id="email_user" name="email"
+                                       placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="control-label col-lg-4">Password</label>
+                            <div class="col-lg-4">
+                                <input type="password" class="form-control" id="password_user" name="password"
+                                       placeholder="Password">
+                            </div>
+                        </div>
+                        {% if register_error %}
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <div id="ajax-errors" class="alert alert-danger" role="alert">
+                                    <p style="text-align: center">{{ register_error }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-4 col-lg-10">
+                                <button type="submit" class="btn btn-primary" id="login-button">Sign in <i
+                                        id="login-button-icon" class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                    </form>
+                {% endif %}
+
+            </div>
+        </div>
+
+
+    </div><!-- container -->
+</div><!-- jumbotron -->
+{% include "include_footer_js.html" %}
+{% include "register_modal_js.html" %}
+</body>
+</html>

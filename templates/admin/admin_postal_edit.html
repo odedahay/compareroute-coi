@@ -1,0 +1,47 @@
+{% extends "admin-base.html" %}
+{% block title %}Admin Page - Postal Code{% endblock %}
+
+{% block content %}
+
+
+        <div class="page-header-admin">
+			<br/>
+            <h2>Postal Code -  List</h2>
+        </div>
+        <div class="row">
+           {% if postalUpdate %}
+				<div class="alert alert-success" role="alert">
+				<p style="text-align: center">{{postalUpdate}}</p>
+				</div>
+			{% endif %}
+        </div>
+		<div class="row">
+			<div class="col-md-6">
+				<br />
+				<form method="POST" action="/admin-search-edit">
+					<label>Postal Code </label>
+					<input class="form-control" style="pointer-events: none; border-color:#eee" type="text" id="postal_code" name="postal_code" value="{{postal_edit.postal_code}}">
+					    <br />
+                        <br />
+					<label>Lat</label>
+						<input class="form-control" type="text" id="lat_val" name="lat_val" value="{{ postal_edit.lat  }}">
+                        <br />
+                        <br />
+					<label>Long </label><br />
+					<input class="form-control" type="text" id="long_val" name="long_val" value="{{ postal_edit.long }}">
+                        <br />
+
+					<a href="/admin-search?q={{postal_edit.postal_code}}" class="btn btn-info">
+						<i class="fa fa-step-backward" aria-hidden="true"></i> Cancel
+					</a>
+					<button type="submit" id="move_postal_code" class="btn btn-primary">Save</button>
+
+				</form>
+
+			</div>
+			<br />
+			<div class="col-md-4"></div>
+		</div><!-- row-->
+
+<!-- container -->
+{% endblock %}

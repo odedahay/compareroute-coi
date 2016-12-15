@@ -1,0 +1,220 @@
+{% extends "main.html" %}
+{% block title %}API Page{% endblock %}
+{% block content %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-header page-scroll">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img class="img-responsive" src="img/logo/compare-route.png" alt="" width="230">
+                </a>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav">
+
+                    {% if email %}
+
+					<li><a href="/compare?#compare"><i class="fa fa-map-marker"></i> Compare</a></li>
+					<li><a href="/profile?#profile"><i class="fa fa-file" aria-hidden="true"></i> Profile</a></li>
+					<li><a href="/api-reg"><i class="fa fa-file" aria-hidden="true"></i> API</a></li>
+					{% else %}
+				        <li class="page-scroll">
+				        	<a href="/#home">Home</a>
+				        </li>
+				        <li class="page-scroll">
+				        	<a href="/#about">About</a>
+				        </li>
+                        <li class="page-scroll">
+				        	<a href="/api-reg#api">API</a>
+				        </li>
+				        <li class="page-scroll">
+				       		<a href="/#contact">Contact</a>
+				       	</li>
+
+	              	{% endif %}
+				</ul>
+				{% if email %}
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li><a><i class="fa fa-user"></i> {{ email }}</a>
+						<input type="hidden" name="email_value" id="email_value" value="{{ email }}">
+                        </li>
+	                    <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                </ul>
+            	{% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="/login"><i class="fa fa-key"></i> Sign in</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-user"></i> Register</a></li>
+
+                </ul>
+            {% endif %}
+
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="container">
+            <div class="page-header">
+                <br/>
+            </div>
+    </div>
+    <section id="api" style="padding:0"></section>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h2>CompareRoute API details</h2>
+				<hr />
+				<p>The CompareRoute API offers developers an easy way to utilize CompareRoute's service,
+                    you can integrate service into your development environment or into your application.</p>
+				<h3>API Access URL</h3>
+				<p>The base URL for the CompareRoute API is http://compare-route-3.appspot.com/api/v1 </p>
+				<h3>Authentication</h3>
+				<p>The CompareRoute API use HTTP Basic Access Authentication as its authentication mechanism.
+					Use your e-mail address as the username and the API key as the password. You can generate or view your API key at the API Key box at the top of the page.</p>
+				<h3>Sample Code</h3>
+				<p>For other various languages to make using the CompareRoute REST API easier to use. We currently only have a sample for Curl and JavaScript:</p>
+
+                <pre style="text-align:left">
+curl -X POST -H "Content-Type: application/json"
+-H "authorization: odedahay@gmail.com vugMWViOJYQ1thXGX89m1OMPI90UIf8IXzMLXacgjFDROH6PE8ORxuKHUomit229BUuaIqglBOQiGA0M/UiK7w=="
+-H "Cache-Control: no-cache" -H "Postman-Token: 8b6cb23d-0429-e674-67e2-68231370e469"
+-d '{
+	"postalhq": 461051,
+	"postal_result": [
+	["469001", "Order01", "1"],
+
+		["760450", "Order02", "2"],
+		["596937", "Order03", "2"],
+		["596740", "Order04", "2"],
+		["098585", "Order05", "2"]
+	],
+	"vehicle_quantity": 1,
+	"has_return": "true",
+	"priority_capacity":"false",
+	"vehicle_type": "truck_1",
+	"vehicle_capacity": "10"
+}' "http://localhost:8080/api/v1"
+				</pre>
+
+				<p>Or in JavaScript Code</p>
+				<pre>
+var data = JSON.stringify({
+  "postalhq": 461051,
+  "postal_result": [
+    [
+      "469001",
+      "Order01",
+      "1"
+    ],
+    [
+      "760450",
+      "Order02",
+      "2"
+    ],
+    [
+      "596937",
+      "Order03",
+      "2"
+    ],
+    [
+      "596740",
+      "Order04",
+      "2"
+    ],
+    [
+      "098585",
+      "Order05",
+      "2"
+    ]
+  ],
+  "vehicle_quantity": 1,
+  "has_return": "true",
+  "priority_capacity": "false",
+  "vehicle_type": "truck_1",
+  "vehicle_capacity": "10"
+});
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://localhost:8080/api/v1");
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("authorization", "odedahay@gmail.com vugMWViOJYQ1thXGX89m1OMPI90UIf8IXzMLXacgjFDROH6PE8ORxuKHUomit229BUuaIqglBOQiGA0M/UiK7w==");
+xhr.setRequestHeader("cache-control", "no-cache");
+xhr.setRequestHeader("postman-token", "8ea11ccf-5c1e-9080-84aa-8796134a8165");
+
+xhr.send(data);
+				</pre>
+
+			</div>
+           <!-- col-xs-4 -->
+
+            <div class="col-xs-4">
+                <div class="box-api">
+                    <h3>Your API Details</h3>
+                    <p>An API key is needed to use the CompareRoute REST API.</p>
+                    <p>You must be logged in to view your API details.</p>
+                    <a href="/login"> Log in</a> or
+                    <a href="#" data-toggle="modal" data-target="#myModal"> Sign Up</a>
+                </div>
+            </div>
+         </div>
+
+        </div>
+    </div>
+    <section style="padding:80px 0;"></section>
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <!-- <div class="row">
+                    <div class="footer-col col-md-4">
+                        <h3>Location</h3>
+                        <p>3481 Melrose Place<br>Beverly Hills, CA 90210</p>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>About Compare Route</h3>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+{% endblock %}
